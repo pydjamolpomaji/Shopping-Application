@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'shop/base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    Thank You
+    {% endblock title %}
+</head>
+<body>
+{% block content %}
+<div class="text-center">
+    <h1>Thank you</h1>
+    <p>Your order has been successfully placed. Your order number is <b>{{ order.id }}</b>.</p>
+    <a href="{%	url	'shop:product_list' %}" class="btn btn-primary btn-sm">Continue shopping</a>
+</div>
+{% endblock content %}
+</body>
+</html>

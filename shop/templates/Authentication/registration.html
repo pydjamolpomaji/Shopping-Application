@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% extends 'shop/base.html' %}
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    Create a Account
+    {% endblock title %}
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <p><input type="submit" class="btn btn-success btn-sm" value="Sign Up"></p>
+        <p>Do you have an Account ?
+            <a href="{% url 'shop:login' %}">Login</a>
+    </form>
+</div>
+{% endblock content %}
+</body>
+</html>

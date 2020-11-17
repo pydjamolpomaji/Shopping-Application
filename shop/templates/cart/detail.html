@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% extends 'shop/base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    Your Shopping Cart
+    {% endblock title %}
+</head>
+<body>
+{% block content %}
+<div class="container" align="center">
+    {% if request.user.is_authenticated %}
+    <h1>Your shopping cart</h1>
+    {% else %}
+    <h3 class="alert alert-danger">Login to Place Your Order</h3>
+    {% endif %}
+    <table class="table">
+        <thead>
+        <tr class="table-warning">
+            <th>Image</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+            <th>Unit price</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+        {% with product=item.product %}
+        <tr>
+            <td>
+                <a href="{{	product.get_absolute_url }}">
+                    <img src="{{ product.image.url }}" style="width: 15rem;">
+                </a>
+            </td>
+            <td><b>{{ product.name }}</b></td>
+            <td>
+                <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                    {{ item.update_quantity_form.quantity }}
+                    {{ item.update_quantity_form.update }}
+                    <input type="submit" class="btn btn-success btn-sm" value="Update">
+                    {% csrf_token %}
+                </form>
+            </td>
+            <td><a href="{%	url	'cart:cart_remove' product.id %}" class="btn btn-danger btn-sm">Remove</a></td>
+            <td class="num">₹ {{ item.price }}</td>
+            <td class="num">₹ {{ item.total_price }}</td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td colspan="5"></td>
+            <td class="num"><b>Total : ₹ {{ cart.get_total_price }}</b></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="text-right">
+        {% with total_items=cart|length %}
+        {% if cart|length > 0 %}
+        <div>
+            {% if request.user.is_authenticated %}
+            <a href="{%	url	'orders:order_create' %}" class="btn btn-primary btn-sm">Checkout</a>
+            <a href="{%	url	'shop:product_list' %}" class="btn btn-primary btn-sm">Continue shopping</a>
+            {% else %}
+            <a class="btn btn-primary btn-sm" href="{% url 'shop:login' %}">Login to Place your Order</a>&nbsp;
+            <a href="{%	url	'shop:product_list' %}" class="btn btn-primary btn-sm">Continue shopping</a>
+            {% endif %}
+        </div>
+        {% else %}
+        <a href="{%	url	'shop:product_list' %}" class="btn btn-primary btn-sm">Continue shopping</a>
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>
+{% endblock content %}
+</body>
+</html>

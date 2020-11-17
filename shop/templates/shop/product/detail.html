@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends 'shop/base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    {{ product.name }}
+    {% endblock title %}
+</head>
+<body>
+{% block content %}
+<div class="text-center">
+    <br><br><br>
+    <div class="row mx-auto">
+        <div class="col-lg-2">
+
+        </div>
+        <div class="col-lg-3 mx-auto">
+            <img class="img-thumbnail" src="{{ product.image.url }}" style="width: 20rem;">
+        </div>
+        <div class="col-lg-5 mx-auto">
+            <h1>{{ product.name }}</h1>
+            <h2><a href="{{ product.category.get_absolute_url }}">
+                {{ product.category }}</a></h2>
+            <p class="price">₹ {{ product.price }}</p>
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <input type="submit" value="Add	to Cart" class="btn btn-success btn-sm">
+            </form>
+            {{ product.description | linebreaks }}
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+</body>
+</html>

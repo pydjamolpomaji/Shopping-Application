@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends 'shop/base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    Logout
+    {% endblock title %}
+</head>
+<body>
+{% block content %}
+<div class="text-center">
+    <br>
+    <h2>You have Successfully Logged out....!!</h2>
+    <h4>Thanks for spending some quality time with the Web site today.</h4>
+    <a href="{% url 'shop:login' %}">Log-in again</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'shop:product_list' %}">Back to HomePage</a>
+    <hr>
+</div>
+{% endblock content %}
+</body>
+</html>
