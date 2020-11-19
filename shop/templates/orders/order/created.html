@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% extends 'shop/base.html' %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,8 +11,8 @@
 <body>
 {% block content %}
 <div class="text-center">
-    <h1>Thank you</h1>
-    <p>Your order has been successfully placed. Your order number is <b>{{ order.id }}</b>.</p>
+    <img src="{% static 'images/ThankYou.jpg' %}" class="img-thumbnail">
+    <h3>Your order has been successfully placed. Your order number is <b>{{ order.id }}</b>.</h3>
     <a href="{%	url	'shop:product_list' %}" class="btn btn-primary btn-sm">Continue shopping</a>
 </div>
 {% endblock content %}
